@@ -20,7 +20,7 @@
  *   getStringLength(undefined) => 0
  */
 function getStringLength(value) {
-  return value.length;
+  return value ? value.length : 0;
 }
 
 /**
@@ -38,7 +38,13 @@ function getStringLength(value) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  return Boolean(value);
+  let result;
+  if (typeof value === 'string' || value instanceof String) {
+    result = true;
+  } else {
+    result = false;
+  }
+  return result;
 }
 
 /**
@@ -69,7 +75,7 @@ function concatenateStrings(value1, value2) {
  *   getFirstChar('') => ''
  */
 function getFirstChar(value) {
-  return value[0];
+  return value.charAt(0);
 }
 
 /**
@@ -99,7 +105,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   removeLeadingWhitespaces('\t\t\tHello, World! ') => 'Hello, World! '
  */
 function removeLeadingWhitespaces(value) {
-  return value.trimStart;
+  return value.trimStart();
 }
 
 /**
@@ -114,7 +120,7 @@ function removeLeadingWhitespaces(value) {
  *   removeTrailingWhitespaces('\t\t\tHello, World! ') => '\t\t\tHello, World!'
  */
 function removeTrailingWhitespaces(value) {
-  return value.trimEnd;
+  return value.trimEnd();
 }
 
 /**
@@ -131,7 +137,7 @@ function removeTrailingWhitespaces(value) {
  *   repeatString('abc', -2) => ''
  */
 function repeatString(str, times) {
-  return str.repeat(times);
+  return times > 0 ? str.repeat(times) : '';
 }
 
 /**
@@ -249,7 +255,7 @@ function formatTime(minutes, seconds) {
  *   reverseString('12345') => '54321'
  */
 function reverseString(str) {
-  return str.reverse();
+  return str.split('').reverse().join('');
 }
 
 /**
@@ -299,7 +305,7 @@ function containsSubstring(str, substring) {
  */
 function countVowels(str) {
   const strMatch = str.match(/[aeuou]/gi);
-  return strMatch === null ? 0 : strMatchlength;
+  return strMatch === null ? 0 : strMatch.length;
 }
 
 /**
@@ -316,12 +322,14 @@ function countVowels(str) {
  *   isPalindrome('No lemon, no melon') => true
  */
 function isPalindrome(str) {
+  let result;
   const reverse = str.split('').reverse().join('');
   if (reverse === str) {
-    return true;
+    result = true;
   } else {
-    return false;
+    result = false;
   }
+  return result;
 }
 
 /**
@@ -476,14 +484,15 @@ function encodeToRot13(str) {
   const symbol = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   const rot13 = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
   return str
-  .split('')
-  .map((char) => {
-    const index = symbol.indexOf(char);
-    if (index === -1) return char;
-    return rot13[index];
-    })
-  .join('');
-  }
+    .split('')
+    .reduce(
+      (newStr, char) =>
+        symbol.indexOf(char) === -1
+          ? newStr + char
+          : newStr + rot13[symbol.indexOf(char)],
+      ''
+    );
+}
 
 /**
  * Returns playid card id.
