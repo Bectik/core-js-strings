@@ -299,7 +299,7 @@ function containsSubstring(str, substring) {
  */
 function countVowels(str) {
   const strMatch = str.match(/[aeuou]/gi);
-  return strMatch === null ? 0 : length;
+  return strMatch === null ? 0 : strMatchlength;
 }
 
 /**
@@ -473,8 +473,17 @@ function extractEmails(str) {
  *
  */
 function encodeToRot13(str) {
-  throw new Error('Not implemented');
-}
+  const symbol = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const rot13 = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  return str
+  .split('')
+  .map((char) => {
+    const index = symbol.indexOf(char);
+    if (index === -1) return char;
+    return rot13[index];
+    })
+  .join('');
+  }
 
 /**
  * Returns playid card id.
