@@ -327,7 +327,7 @@ function countVowels(str) {
  */
 function isPalindrome(str) {
   let result;
-  const reverse = str.split('').reverse().join('');
+  const reverse = str.split(' ').reverse().join('');
   if (str.toLowerCase() === reverse) {
     result = true;
   } else {
@@ -349,15 +349,7 @@ function isPalindrome(str) {
  *   findLongestWord('No words here') => 'words'
  */
 function findLongestWord(sentence) {
-  let maxVal = 0;
-  const wordSplit = sentence.split(' ');
-  for (let i = 0; i < wordSplit.length; i += i) {
-    const word = wordSplit[i];
-    if (word.length > maxVal) {
-      maxVal = word.length;
-    }
-  }
-  return maxVal;
+  return sentence.split(' ').sort((a, b) => b.length - a.length)[0];
 }
 
 /**
@@ -374,7 +366,7 @@ function reverseWords(str) {
   const arr = str.split(' ');
   let result = '';
   for (let i = 0; i < arr.length; i += 1) {
-    result += `${arr[i].split('').revers().join('')}`;
+    result += `${arr[i].split(' ').revers().join('')}`;
   }
   return result.trim();
 }
