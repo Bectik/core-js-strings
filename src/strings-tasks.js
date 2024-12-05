@@ -308,7 +308,7 @@ function containsSubstring(str, substring) {
  *   countVowels('XYZ') => 1
  */
 function countVowels(str) {
-  const strMatch = str.match(/[aeuou]/gi);
+  const strMatch = str.match(/[aeuouy]/gi);
   return strMatch === null ? 0 : strMatch.length;
 }
 
@@ -328,7 +328,7 @@ function countVowels(str) {
 function isPalindrome(str) {
   let result;
   const reverse = str.split('').reverse().join('');
-  if (reverse === str) {
+  if (str.toLowerCase() === reverse) {
     result = true;
   } else {
     result = false;
